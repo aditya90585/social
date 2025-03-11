@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt")
 const usermodel = require("./models/user")
 const postmodel = require("./models/posts")
 const upload = require("./config/multerupload")
-
+require("dotenv").config()
 const app = express()
 app.use(cookieparser())
 app.use(express.static("public"))
@@ -155,4 +155,4 @@ function isloggedin(req, res, next) {
     next();
 }
 
-app.listen(3000)
+app.listen(process.env.PORT)
