@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h4{
+            display: block;
+        }
+        .form{
+            display: flex;
+            width: 95vw;
+            height: 95vh;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .submit{
+            display: block;
+            margin-top: 20px;
+            background-color: goldenrod;
+            color: white;
+            border-style: none;
+            border-radius: 8px;
+            padding: 10px;
+        }
+        #text{
+            display: block;
+            width: 30vw;
+            height: 100px;
+            
+            resize: none;
+            
+            border-radius: 8px;
+        }
+
+    </style>
+</head>
+<body>
+   
+    <div class="form">
+        <h4>Edit Post Content</h4>
+    <form action="/update/<%= post._id %>" method="post">
+        <textarea name="text" id="text"  ><%= post.content %></textarea>
+        <input type="submit" class="submit" value="update content">
+    </form>
+    </div>
+</body>
+</html>

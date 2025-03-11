@@ -1,0 +1,149 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+.hidden{
+    display: none;
+}
+.logout{
+   display: flex;
+   width: 90vw;
+   justify-content: flex-end;
+    
+}
+.logout a{
+    background-color: red;
+    color: white;
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 4px;
+    margin: 5px;
+}
+.main{
+  display: flex;
+  width: 90vw;
+  align-items: center;
+  margin-top: 10px;
+  justify-content: center;
+  flex-direction: column;
+  margin: auto;
+}
+.prodit{
+    display: flex;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 300px;
+    align-items: center;
+    justify-content: space-between;
+}
+.proimg img{
+    height: 100px;
+    border-radius: 50px;
+}
+.newpropic{
+    width: 300px;
+    padding: 5px;
+    background-color: blue;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}
+.newpropic a{
+    color: white;
+    text-decoration: none;
+}
+.feed{
+    width: 300px;
+    padding: 5px;
+    background-color: blue;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+}
+.feed a{
+    color: white;
+    text-decoration: none;
+}
+.name{
+    font-size: 30px;
+    font-weight: 700;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.upload{
+    width: 300px;
+    padding: 5px;
+    background-color: blue;
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+}
+.textarea{
+    resize: none;
+    margin-top: 20px;
+    
+    width: 300px;
+    display: block;
+    border-radius: 8px;
+}
+.input{
+    display: block;
+    margin-top: 10px;
+    background-color: blue;
+    border-style: none;
+    border-radius: 8px;
+    height: 30px;
+    color: white;
+}
+.box{
+    
+    width: 300px;
+    border: 1px solid black;
+    border-radius: 8px;
+    margin: 5px;
+}
+.username{
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    color: blue;
+}
+.data{
+    margin-left: 10px;
+}
+.all{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.left{
+    display: flex; 
+    gap: 8px; 
+}
+.left a{
+    text-decoration: none;
+    color: blue;
+}
+.right{
+    display: flex;
+    gap: 8px;
+    position: relative;
+    right: 10px;
+}
+.right a{
+    text-decoration: none;
+    color: rgb(165, 3, 3);
+}
+.postpic{
+    width: 280px;
+    margin: auto;
+}
+.postpic img{
+    width:100%;
+    margin: auto;
+    border-radius: 4px;
+    
+}

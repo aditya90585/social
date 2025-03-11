@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <style>
+        .sign{
+    background-color: rgb(240, 158, 6);
+    color: white;
+    width: 20vw;
+    height: 40px;
+    margin: auto;
+    text-align: center;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+}
+.sign a{
+    text-decoration: none;
+    color: white;
+    text-align: center;
+}
+    </style>
+</head>
+<body>
+    <div class="form">
+    <h2>Login</h2>
+   <form action="/login" method="post">
+  <input type="text" name="email" id="" placeholder="enter email">
+  <input type="text" name="password" id="" placeholder="enter password">
+  <input type="submit" value="Login" class="submit">
+   </form>
+   <div class="not">do not have an account ?</div>
+   <div class="sign"><a href="/">Sing up</a></div>
+   </div>
+</body>
+</html>

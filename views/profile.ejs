@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/style2.css">
+</head>
+
+<body>
+    <header>
+        <div class="logout"><a href="/logout">log out</a></div>
+    </header>
+    <main>
+        <div class="main">
+            <div class="prodit">
+                <div class="proimg"><img src="/images/uploads/<%= user.profile %>" alt=""></div>
+                <div class="name">
+                    <%=user.name %>
+                </div>
+            </div>
+            <div class=" newpropic hidden">
+                <a href="/upload">Upload new profile picture</a>
+            </div>
+            <div class="upload">Upload new post</div>
+            <div class="form hidden">
+                <form action="/post" method="post" enctype="multipart/form-data">
+                    <input type="file" name="images" id="">
+                    <textarea class="textarea" name="content" id="" placeholder="enter post decreption"></textarea>
+                    <input class="input" type="submit" value="Create new post">
+                </form>
+            </div>
+            <div class="feed">
+                <a href="/feed">Go to feed</a>
+            </div>
+            <div class="posts">
+                <h3>your posts</h3>
+
+                <% user.posts.forEach((post)=>{ %>
+                    <div class="box">
+                        <div class="username">
+                            <%=user.username %>
+                        </div>
+                        <div class="postpic"><img src="/images/uploads/<%= post.imageurl %>" alt=""></div>
+                        <div class="data">
+                            <%= post.content %>
+                                <div class="all">
+                                    <div class="left">
+                                        <div class="no">
+                                            <%= post.like.length %> like
+                                        </div>
+                                        <div class="like"><a href="/like/<%= post._id %>">
+                                                <% if(post.like.indexOf(user._id)===0){ %>
+                                                    <span>unlike</span>
+
+                                                    <% }else{ %>
+                                                        <span>like</span>
+                                                        <% } %>
+
+                                            </a></div>
+                                    </div>
+                                    <div class="right">
+                                        <div class="edit"><a href="/edit/<%= post._id %>">edit</a></div>
+                                        <div class="edit"><a href="/delete/<%= post._id %>">delete </a></div>
+                                    </div>
+                                </div>
+                        </div>
+
+                    </div>
+                    <%}) %>
+
+            </div>
+        </div>
+        </div>
+    </main>
+    <footer></footer>
+    <script>
+        let upload = document.querySelector(".upload")
+        let form = document.querySelector(".form")
+        let profile = document.querySelector(".proimg")
+        let newpic = document.querySelector(".newpropic")
+
+
+        upload.addEventListener("click", () => {
+            form.classList.remove("hidden")
+            upload.classList.add("hidden")
+        })
+        profile.addEventListener("click", () => {
+            newpic.classList.toggle("hidden")
+
+        })
+    </script>
+</body>
+
+</html>

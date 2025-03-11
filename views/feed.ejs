@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<link rel="stylesheet" href="/stylesheets/style2.css">
+<style>
+.feeds{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90vw;
+    flex-direction: column;
+}
+</style>
+
+<body>
+    <div class="feeds">
+    <div class="feed">
+        <a href="/profile">Go to profile</a>
+    </div>
+    <% post.forEach((post)=>{ %>
+        <div class="box">
+            <div class="username">
+                <%= post.user.username %>
+            </div>
+            <div class="postpic"><img src="/images/uploads/<%= post.imageurl %>" alt=""></div>
+            <div class="data">
+                <%= post.content %>
+                    <div class="all">
+                        <div class="left">
+                            <div class="no">
+                                <%= post.like.length %> like
+                            </div>
+                            <div class="like"><a href="/like/<%= post._id %>">
+                                <% if(post.like.indexOf(user._id)=== -1){ %>
+                                    
+                                    <span>like</span>
+                                    <% }else{ %>
+                                        <span>unlike</span>
+                                        <% } %>
+
+                            </a></div>
+                    </div>
+
+                        </div>
+                    </div>
+
+            </div>
+            <% })%>
+    </div>
+</body>
+
+</html>
