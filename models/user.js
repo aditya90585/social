@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-mongoose.connect("mongodb://localhost:27017/miniproject,{strictQuery:false}")
+mongoose.connect("mongodb://localhost:27017/miniproject")
 
 let userschema = mongoose.Schema({
     name:String,
