@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-mongoose.connect("mongodb://127.0.0.1:27017/miniproject2")
+mongoose.connect("mongodb+srv://adityarajput81971:1Rajput11@cluster0.vrzk0uy.mongodb.net/social")
 
 let userschema = mongoose.Schema({
     name:String,

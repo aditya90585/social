@@ -1,5 +1,5 @@
 const express = require("express")
-const bcrpt = require("bcrypt")
+
 const jwt = require("jsonwebtoken")
 const cookieparser = require("cookie-parser")
 const bcrypt = require("bcrypt")
@@ -25,11 +25,11 @@ app.get("/login", (req, res) => {
 app.get("/upload", (req, res) => {
     res.render("upload")
 })
-app.get("/feed", isloggedin,async (req, res) => {
+app.get("/feed", isloggedin, async (req, res) => {
     let user = await usermodel.findOne({ email: req.user.email })
     let post = await postmodel.find().populate("user")
     console.log(post)
-    res.render("feed", { post: post ,user:user})
+    res.render("feed", { post: post, user: user })
 })
 app.post("/upload", isloggedin, upload.single("image"), async (req, res) => {
     let user = await usermodel.findOne({ email: req.user.email })
@@ -66,7 +66,7 @@ app.get("/like/:id", isloggedin, async (req, res) => {
     }
     else {
         await post.like.splice(user._id, 1)
-        
+
     }
     await post.save()
 
@@ -96,14 +96,17 @@ app.post("/update/:id", isloggedin, async (req, res) => {
     res.redirect("/profile")
 })
 app.post("/register", async (req, res) => {
-    let { name, username, age, email, password } = req.body
+    let { name, username, age, email, password } = await req.body
     let user = await usermodel.findOne({ email: email })
 
-    if (user) {
-        res.send("email already exits")
-    }
-    bcrypt.genSalt(10, (err, salt) => {
+    // if (user) {
+    //     res.send("email already exits")
+    // }
+
+    bcrypt.genSalt(10, async (err, salt) => {
+        console.log("registered1")
         bcrypt.hash(password, salt, async (err, hash) => {
+            console.log("registered2")
             let userdata = await usermodel.create({
                 name: name,
                 username: username,
@@ -111,12 +114,15 @@ app.post("/register", async (req, res) => {
                 email: email,
                 password: hash
             })
+            console.log("registered")
+            let userdatas = usermodel.findOne({ email: email })
+            let token = jwt.sign({ email: email, userid: userdatas._id }, "123456")
+            console.log("registered5")
+            res.cookie("token", token)
+            res.redirect("/profile")
         })
     })
 
-    let token = jwt.sign({ email: email, userid: user._id }, "123456")
-    res.cookie("token", token)
-    res.send("registered")
 })
 
 
@@ -155,4 +161,4 @@ function isloggedin(req, res, next) {
     next();
 }
 
-app.listen(process.env.PORT)
+app.listen(3000)
