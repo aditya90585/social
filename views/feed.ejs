@@ -28,7 +28,7 @@
             <div class="username">
                 <%= post.user.username %>
             </div>
-            <div class="postpic"><img src="/images/uploads/<%= post.imageurl %>" alt=""></div>
+            <div class="postpic"><img src="data:image/jpeg;base64,<%= post.image.toString("base64") %>" alt=""></div>
             <div class="data">
                 <%= post.content %>
                     <div class="all">
