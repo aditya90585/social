@@ -16,7 +16,7 @@
     <main>
         <div class="main">
             <div class="prodit">
-                <div class="proimg"><img src="/images/uploads/<%= user.profile %>" alt=""></div>
+                <div class="proimg"><img src="data:image/jpeg;base64,<%= user.profile %>" alt=""></div>
                 <div class="name">
                     <%=user.name %>
                 </div>
@@ -43,7 +43,7 @@
                         <div class="username">
                             <%=user.username %>
                         </div>
-                        <div class="postpic"><img src="/images/uploads/<%= post.imageurl %>" alt=""></div>
+                        <div class="postpic"><img src="data:image/jpeg;base64,<%= post.image.toString("base64") %>" alt=""></div>
                         <div class="data">
                             <%= post.content %>
                                 <div class="all">
