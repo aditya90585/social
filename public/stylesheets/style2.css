@@ -37,7 +37,10 @@ body{
     justify-content: space-between;
 }
 .proimg img{
-    height: 100px;
+   height: 100px;
+    width: 100px;
+    object-fit: cover;
+    object-position: center;
     border-radius: 50px;
 }
 .newpropic{
