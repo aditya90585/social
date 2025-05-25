@@ -33,7 +33,7 @@ app.get("/feed", isloggedin, async (req, res) => {
 })
 app.post("/upload", isloggedin, upload.single("image"), async (req, res) => {
     let user = await usermodel.findOne({ email: req.user.email })
-    user.profile = req.file.filename
+    user.profile = req.file.buffer.toString("base64")
     user.save()
     res.redirect("/profile")
 })
@@ -48,7 +48,7 @@ app.post("/post", isloggedin, upload.single("images"), async (req, res) => {
     let post = await postmodel.create({
         user: user._id,
         content: req.body.content,
-        imageurl: req.file.filename,
+          image: req.file.buffer,
     })
     user.posts.push(post._id);
     await user.save()
