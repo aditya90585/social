@@ -10,7 +10,7 @@ let postschema = mongoose.Schema({
     type:Date,
     default:Date.now
    },
-   imageurl:String,
+   image:Buffer,
    content:String,
    like:[
     {
