@@ -25,15 +25,27 @@ app.get("/login", (req, res) => {
 app.get("/upload", (req, res) => {
     res.render("upload")
 })
+app.get("/search", isloggedin, async (req, res) => {
+    let realuser = await usermodel.findOne({ email: req.user.email })
+    let user = await usermodel.find({ name: req.cookies.finduser })
+    res.render("search", { user: user,realuser:realuser })
+})
+app.post("/search", isloggedin, async (req, res) => {
+
+        res.cookie("finduser", req.body.name)
+    
+
+    res.redirect("/search")
+})
 app.get("/feed", isloggedin, async (req, res) => {
     let user = await usermodel.findOne({ email: req.user.email })
     let post = await postmodel.find().populate("user")
-    console.log(post)
+    // console.log(post)
     res.render("feed", { post: post, user: user })
 })
 app.post("/upload", isloggedin, upload.single("image"), async (req, res) => {
     let user = await usermodel.findOne({ email: req.user.email })
-    user.profile = req.file.filename
+    user.profile = req.file.buffer.toString("base64")
     user.save()
     res.redirect("/profile")
 })
@@ -48,7 +60,7 @@ app.post("/post", isloggedin, upload.single("images"), async (req, res) => {
     let post = await postmodel.create({
         user: user._id,
         content: req.body.content,
-        imageurl: req.file.filename,
+        image: req.file.buffer,
     })
     user.posts.push(post._id);
     await user.save()

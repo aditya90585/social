@@ -1,17 +1,48 @@
-body{
+body {
     margin: 0;
     padding: 0;
 }
-.hidden{
+
+header {
+    display: flex;
+    height: 60px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rebeccapurple;
+}
+
+.logo img {
+    height: 50px;
+
+}
+
+.h2 {
+    display: flex;
+    height: 50px;
+    align-items: center;
+}
+
+.search {
+    width: 20px;
+}
+.searching {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4px;
+     margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 30px;
+
+}
+
+.hidden {
     display: none;
 }
-.logout{
-   display: flex;
-   width: 90vw;
-   justify-content: flex-end;
-    
-}
-.logout a{
+
+
+
+.logout a {
     background-color: red;
     color: white;
     text-decoration: none;
@@ -19,16 +50,18 @@ body{
     border-radius: 4px;
     margin: 5px;
 }
-.main{
-  display: flex;
-  width: 90vw;
-  align-items: center;
-  margin-top: 10px;
-  justify-content: center;
-  flex-direction: column;
-  margin: auto;
+
+.main {
+    display: flex;
+    width: 90vw;
+    align-items: center;
+    margin-top: 10px;
+    justify-content: center;
+    flex-direction: column;
+    margin: auto;
 }
-.prodit{
+
+.prodit {
     display: flex;
     margin-top: 30px;
     margin-bottom: 30px;
@@ -36,11 +69,16 @@ body{
     align-items: center;
     justify-content: space-between;
 }
-.proimg img{
+
+.proimg img {
     height: 100px;
+    width: 100px;
+    object-fit: cover;
+    object-position: center;
     border-radius: 50px;
 }
-.newpropic{
+
+.newpropic {
     width: 300px;
     padding: 5px;
     background-color: blue;
@@ -50,11 +88,13 @@ body{
     margin-bottom: 10px;
 
 }
-.newpropic a{
+
+.newpropic a {
     color: white;
     text-decoration: none;
 }
-.feed{
+
+.feed {
     width: 300px;
     padding: 5px;
     background-color: blue;
@@ -64,16 +104,19 @@ body{
     margin-bottom: 10px;
 
 }
-.feed a{
+
+.feed a {
     color: white;
     text-decoration: none;
 }
-.name{
+
+.name {
     font-size: 30px;
     font-weight: 700;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
-.upload{
+
+.upload {
     width: 300px;
     padding: 5px;
     background-color: blue;
@@ -81,15 +124,17 @@ body{
     border-radius: 10px;
     text-align: center;
 }
-.textarea{
+
+.textarea {
     resize: none;
     margin-top: 20px;
-    
+
     width: 300px;
     display: block;
     border-radius: 8px;
 }
-.input{
+
+.input {
     display: block;
     margin-top: 10px;
     background-color: blue;
@@ -98,52 +143,62 @@ body{
     height: 30px;
     color: white;
 }
-.box{
-    
+
+.box {
+
     width: 300px;
     border: 1px solid black;
     border-radius: 8px;
     margin: 5px;
 }
-.username{
+
+.username {
     margin-left: 10px;
     margin-top: 10px;
     margin-bottom: 5px;
     color: blue;
 }
-.data{
+
+.data {
     margin-left: 10px;
 }
-.all{
+
+.all {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
-.left{
-    display: flex; 
-    gap: 8px; 
+
+.left {
+    display: flex;
+    gap: 8px;
 }
-.left a{
+
+.left a {
     text-decoration: none;
     color: blue;
 }
-.right{
+
+.right {
     display: flex;
     gap: 8px;
     position: relative;
     right: 10px;
 }
-.right a{
+
+.right a {
     text-decoration: none;
     color: rgb(165, 3, 3);
 }
-.postpic{
+
+.postpic {
     width: 280px;
     margin: auto;
 }
-.postpic img{
-    width:100%;
+
+.postpic img {
+    width: 100%;
     margin: auto;
     border-radius: 4px;
-    
+
 }

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/style2.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .forms {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            flex-direction: column;
+        }
+
+        .searchs {
+
+            border-style: none;
+            margin-left: 5px;
+            background-color: blue;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .users {
+            width: 100vw;
+            margin-top: 10px;
+        }
+
+        .user {
+            width: 90vw;
+            margin: auto;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            height: 50px;
+            background-color: rgb(214, 202, 185);
+            border-radius: 40px;
+        }
+
+        .proimgs {
+            width: 40px;
+            height: 40px;
+            margin: 5px;
+        }
+
+        .proimgs img {
+            height: 40px;
+            width: 40px;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 40px;
+        }
+
+        .details {
+            margin-left: 20px;
+            color: white;
+        }
+
+        .names {
+            font-weight: 600;
+        }
+
+        .profilepic {
+            height: 30px;
+            width: 30px;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="/images/uploads/logo.svg" alt="">
+        </div>
+
+        <div class="h2">
+            <div class="searching">
+                <a href="/profile"><img class="profilepic" src="data:image/jpeg;base64,<%= realuser.profile %>"
+                        alt=""></a>
+            </div>
+            <div class="searching">
+                <a href="/search"><img class="search" src="/images/uploads/search.svg" alt=""></a>
+            </div>
+
+            <div class="logout"><a href="/logout">log out</a></div>
+        </div>
+    </header>
+    <div class="forms">
+        <h2>Search the user by name</h2>
+        <form action="/search" method="post">
+            <input type="text" name="name" id="" placeholder="enter name">
+            <input type="submit" value="Search" class="searchs">
+        </form>
+    </div>
+
+    <div class="users">
+
+
+        <% if(user.length>0){ %>
+
+
+            <% user.forEach((e)=>{ %>
+                <div class="user">
+                    <div class="proimgs"><img src="data:image/jpeg;base64,<%= e.profile %>" alt=""></div>
+                    <div class="details">
+                        <div class="names">
+                            <%= e.name %>
+                        </div>
+                        <div class="usernames">
+                            <%= e.username %>
+                        </div>
+                    </div>
+
+                </div>
+                <% }) %>
+                    <% }%>
+    </div>
+</body>
+
+</html>

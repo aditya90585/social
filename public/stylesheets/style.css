@@ -49,3 +49,19 @@ form input{
     color: white;
     text-align: center;
 }
+
+
+@media screen and (max-width: 480px) {
+   form{
+    width: 80vw;
+   }
+   .sign{
+    width: 40vw;
+   }
+   .submit{
+    width: 55vw;
+   }
+   .login{
+    width: 55vw;
+   }
+}
