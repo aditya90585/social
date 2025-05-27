@@ -75,6 +75,18 @@
             object-position: center;
             border-radius: 50px;
         }
+        .chatimg{
+            height: 20px;
+        }
+        .chatlink{
+            margin-right: 20px;
+        }
+        .forchat{
+            display: flex;
+            width: 100%;
+            justify-content:space-between;
+            align-items: center;
+        }
     </style>
 </head>
 
@@ -113,6 +125,7 @@
             <% user.forEach((e)=>{ %>
                 <div class="user">
                     <div class="proimgs"><img src="data:image/jpeg;base64,<%= e.profile %>" alt=""></div>
+                   <div class="forchat">
                     <div class="details">
                         <div class="names">
                             <%= e.name %>
@@ -121,7 +134,8 @@
                             <%= e.username %>
                         </div>
                     </div>
-
+                 <div class="chatlink"><a href="/chat/<%= e._id%>"><img class="chatimg" src="/images/uploads/chat.svg" alt=""></a></div>
+               </div>
                 </div>
                 <% }) %>
                     <% }%>

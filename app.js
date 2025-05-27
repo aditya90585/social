@@ -5,6 +5,7 @@ const cookieparser = require("cookie-parser")
 const bcrypt = require("bcrypt")
 const usermodel = require("./models/user")
 const postmodel = require("./models/posts")
+const chatmodel = require("./models/chat")
 const upload = require("./config/multerupload")
 require("dotenv").config()
 const app = express()
@@ -25,15 +26,59 @@ app.get("/login", (req, res) => {
 app.get("/upload", (req, res) => {
     res.render("upload")
 })
+app.get("/chat/:id", isloggedin, async (req, res) => {
+    let id = await req.params.id
+    let currentuser = await usermodel.findOne({ email: req.user.email })
+    let frienddetails = await usermodel.findOne({ _id: id })
+    let newchat = await chatmodel.find()
+    let arraychat = await newchat.filter((e) => {
+        return ((e.id1 == currentuser._id && e.id2 == frienddetails._id) || (e.id2 == currentuser._id && e.id1 == frienddetails._id))
+    })
+    if (frienddetails._id.toString() == currentuser._id.toString()) {
+     res.redirect("/search")
+    }
+    else {
+           if (arraychat.length == 0) {
+            let chatdata = await chatmodel.create({
+                id1: currentuser._id,
+                id2: frienddetails._id,
+            })
+        }
+            let newchatdata = await chatmodel.findOne({ id2: currentuser._id })
+    if (newchatdata == null) {
+        newchatdata = await chatmodel.findOne({ id2: req.params.id })
+    }
+    res.render("chat", { user: frienddetails, currentuser, chatdata: newchatdata })
+    }
+
+
+})
+app.post("/chat/:id", isloggedin, async (req, res) => {
+    console.log(req.params.id)
+    let currentuser = await usermodel.findOne({ email: req.user.email })
+    let newchat = await chatmodel.findOne({ id2: currentuser._id })
+    if (newchat == null) {
+        newchat = await chatmodel.findOne({ id2: req.params.id })
+    }
+
+    let chatdata = await {
+        message: req.body.messages,
+        onlyid: req.params.id
+    }
+
+    newchat.chat.push(chatdata)
+    newchat.save()
+    res.redirect(`/chat/${req.params.id}`)
+})
 app.get("/search", isloggedin, async (req, res) => {
     let realuser = await usermodel.findOne({ email: req.user.email })
     let user = await usermodel.find({ name: req.cookies.finduser })
-    res.render("search", { user: user,realuser:realuser })
+    res.render("search", { user: user, realuser: realuser })
 })
 app.post("/search", isloggedin, async (req, res) => {
 
-        res.cookie("finduser", req.body.name)
-    
+    res.cookie("finduser", req.body.name)
+
 
     res.redirect("/search")
 })

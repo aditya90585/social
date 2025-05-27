@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/chat.css">
+    <link rel="stylesheet" href="/stylesheets/style2.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="/images/uploads/logo.svg" alt="">
+        </div>
+
+        <div class="h2">
+            <div class="searching">
+                <a href="/profile"><img class="profilepic" src="data:image/jpeg;base64,<%= currentuser.profile %>"
+                        alt=""></a>
+            </div>
+            <div class="searching">
+                <a href="/search"><img class="search" src="/images/uploads/search.svg" alt=""></a>
+            </div>
+
+            <div class="logout"><a href="/logout">log out</a></div>
+        </div>
+    </header>
+
+    <div class="chatinfo">
+        <img src="data:image/jpeg;base64,<%= user.profile %>" alt="">
+        <%= user.name %>
+    </div>
+    <main>
+        <div class="chatmessage">
+            <% chatdata.chat.forEach((e)=>{ %>
+                <% if( e.onlyid  ==  user._id ){ %>
+                    
+                    <div class="mainmessage rightchat"><div class="dot"></div><%= e.message %></div>
+                    <% } else if(e.onlyid  ==  currentuser._id){ %>
+                        <div class="mainmessage leftchat"><div class="dot dot2 "></div> <%= e.message %></div>
+                        <% }%>
+
+                        <% }) %>
+        </div>
+    </main>
+
+    <div class="chatform">
+        <form action="/chat/<%= user._id %>" method="post">
+            <input type="text" name="messages" placeholder="Type your message">
+            <button><img src="/images/uploads/send.svg" alt=""></button>
+
+        </form>
+    </div>
+
+</body>
+
+</html>
