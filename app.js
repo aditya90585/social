@@ -7,6 +7,7 @@ const usermodel = require("./models/user")
 const postmodel = require("./models/posts")
 const chatmodel = require("./models/chat")
 const upload = require("./config/multerupload")
+const e = require("express")
 require("dotenv").config()
 const app = express()
 app.use(cookieparser())
@@ -35,20 +36,25 @@ app.get("/chat/:id", isloggedin, async (req, res) => {
         return ((e.id1 == currentuser._id && e.id2 == frienddetails._id) || (e.id2 == currentuser._id && e.id1 == frienddetails._id))
     })
     if (frienddetails._id.toString() == currentuser._id.toString()) {
-     res.redirect("/search")
+        res.redirect("/search")
     }
     else {
-           if (arraychat.length == 0) {
+
+        if (arraychat.length == 0) {
             let chatdata = await chatmodel.create({
                 id1: currentuser._id,
                 id2: frienddetails._id,
             })
         }
-            let newchatdata = await chatmodel.findOne({ id2: currentuser._id })
-    if (newchatdata == null) {
-        newchatdata = await chatmodel.findOne({ id2: req.params.id })
-    }
-    res.render("chat", { user: frienddetails, currentuser, chatdata: newchatdata })
+
+
+
+        let newchatdata = await chatmodel.findOne({ id2: currentuser._id } && { id1: frienddetails._id })
+        if (newchatdata == null) {
+            newchatdata = await chatmodel.findOne({ id2: frienddetails._id } && { id1: currentuser._id })
+
+        }
+        res.render("chat", { user: frienddetails, currentuser, chatdata: newchatdata })
     }
 
 
