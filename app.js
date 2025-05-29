@@ -50,8 +50,10 @@ app.get("/chat/:id", isloggedin, async (req, res) => {
 
 
         let newchatdata = await chatmodel.findOne({ id2: currentuser._id } && { id1: frienddetails._id })
+        console.log(newchatdata)
         if (newchatdata == null) {
             newchatdata = await chatmodel.findOne({ id2: frienddetails._id } && { id1: currentuser._id })
+            console.log(newchatdata)
 
         }
         res.render("chat", { user: frienddetails, currentuser, chatdata: newchatdata })
@@ -60,20 +62,22 @@ app.get("/chat/:id", isloggedin, async (req, res) => {
 
 })
 app.post("/chat/:id", isloggedin, async (req, res) => {
-    console.log(req.params.id)
     let currentuser = await usermodel.findOne({ email: req.user.email })
-    let newchat = await chatmodel.findOne({ id2: currentuser._id })
-    if (newchat == null) {
-        newchat = await chatmodel.findOne({ id2: req.params.id })
-    }
+
+      let frienddetails = await usermodel.findOne({ _id: req.params.id })
+       let newchat = await chatmodel.findOne({ id2: currentuser._id } && { id1: frienddetails._id })
+        if (newchat == null) {
+            newchat = await chatmodel.findOne({ id2: frienddetails._id } && { id1: currentuser._id })
+
+        }
 
     let chatdata = await {
         message: req.body.messages,
         onlyid: req.params.id
     }
 
-    newchat.chat.push(chatdata)
-    newchat.save()
+    await newchat.chat.push(chatdata)
+    await newchat.save()
     res.redirect(`/chat/${req.params.id}`)
 })
 app.get("/search", isloggedin, async (req, res) => {
