@@ -65,7 +65,7 @@ button img{
 
 main{
     width: 100vw;
-    height: 70vh;
+    height: 60vh;
     margin-top: 20px;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -81,16 +81,20 @@ main{
     overflow-wrap: anywhere;
     margin-top: 18px;
     border-radius: 10px;
-    background-color: hotpink;
     margin-left: 10px;
     margin-right: 10px;
+    color: white;
+    font-weight: 700;
+    font-size: larger;
 }
 .rightchat{
     position: relative;
     left: 34vw;
+    background-color: rgb(61, 176, 243);
 }
 .leftchat{
 position: relative;
+background-color: rgb(180, 222, 247);
 }
 .dot{
     position: absolute;
@@ -100,8 +104,14 @@ position: relative;
   
   border-left: 12px solid transparent;
   border-right: 12px solid transparent;
-  border-top: 12px solid hotpink;; /* Triangle color */
+  border-top: 12px solid  rgb(61, 176, 243) ;; /* Triangle color */
 }
 .dot2{
     left: 86%;
+    border-top: 12px solid  rgb(180, 222, 247)
+}
+@media screen and (max-width: 480px) {
+    main{
+        height: 62vh;
+    }
 }
