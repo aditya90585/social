@@ -1,5 +1,6 @@
 const express = require("express")
-
+const http = require("http")
+const Server = require("socket.io")
 const jwt = require("jsonwebtoken")
 const cookieparser = require("cookie-parser")
 const bcrypt = require("bcrypt")
@@ -10,6 +11,8 @@ const upload = require("./config/multerupload")
 const e = require("express")
 require("dotenv").config()
 const app = express()
+const server = http.createServer(app)
+const io = new Server.Server(server)
 app.use(cookieparser())
 app.use(express.static("public"))
 app.use(express.json())
@@ -26,6 +29,28 @@ app.get("/login", (req, res) => {
 })
 app.get("/upload", (req, res) => {
     res.render("upload")
+})
+
+
+io.on("connection", (socket) => {
+    console.log("user connected")
+
+
+    socket.on('joinRoom', (roomId) => {
+        socket.join(roomId)
+        console.log("user joined room", roomId)
+    })
+
+    socket.on("message", async ({ roomId, senderId, message }) => {
+        console.log("new message", message,senderId)
+
+
+        await chatmodel.findByIdAndUpdate(roomId, {
+            $push: { chat: { onlyid: senderId, message: message } }
+        });
+
+        io.to(roomId).emit("message", { senderId, message });
+    })
 })
 app.get("/chat/:id", isloggedin, async (req, res) => {
     let id = await req.params.id
@@ -46,27 +71,24 @@ app.get("/chat/:id", isloggedin, async (req, res) => {
                 id2: frienddetails._id,
             })
         }
- let newchatdata = await  chatmodel.findOne({id1:currentuser._id , id2:frienddetails._id})
+        let newchatdata = await chatmodel.findOne({ id1: currentuser._id, id2: frienddetails._id })
 
- if(newchatdata == null ){
-    newchatdata = await  chatmodel.findOne({id1:frienddetails._id , id2:currentuser._id})
- }
- console.log(newchatdata)
- 
-        res.render("chat", { user: frienddetails, currentuser, chatdata: newchatdata})
+        if (newchatdata == null) {
+            newchatdata = await chatmodel.findOne({ id1: frienddetails._id, id2: currentuser._id })
+        }
+
+        res.render("chat", { user: frienddetails, currentuser, chatdata: newchatdata , roomId: newchatdata._id})
     }
-
-
 })
 app.post("/chat/:id", isloggedin, async (req, res) => {
     let currentuser = await usermodel.findOne({ email: req.user.email })
 
-      let frienddetails = await usermodel.findOne({ _id: req.params.id })
-       let newchat = await chatmodel.findOne({ id2: currentuser._id , id1: frienddetails._id })
-        if (newchat == null) {
-            newchat = await chatmodel.findOne({ id2: frienddetails._id , id1: currentuser._id })
+    let frienddetails = await usermodel.findOne({ _id: req.params.id })
+    let newchat = await chatmodel.findOne({ id2: currentuser._id, id1: frienddetails._id })
+    if (newchat == null) {
+        newchat = await chatmodel.findOne({ id2: frienddetails._id, id1: currentuser._id })
 
-        }
+    }
 
     let chatdata = await {
         message: req.body.messages,
@@ -75,6 +97,9 @@ app.post("/chat/:id", isloggedin, async (req, res) => {
 
     await newchat.chat.push(chatdata)
     await newchat.save()
+
+
+
     res.redirect(`/chat/${req.params.id}`)
 })
 app.get("/search", isloggedin, async (req, res) => {
@@ -225,4 +250,4 @@ function isloggedin(req, res, next) {
     next();
 }
 
-app.listen(process.env.PORT)
+server.listen(process.env.PORT, () => console.log("server running"))

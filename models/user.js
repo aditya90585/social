@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 
 
-mongoose.connect("mongodb+srv://adityarajput81971:1Rajput11@cluster0.vrzk0uy.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", {
+mongoose.connect("mongodb://localhost:27017/chattr" || MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })

@@ -37,9 +37,9 @@
             <% chatdata.chat.forEach((e)=>{ %>
                 <% if( e.onlyid  ==  user._id ){ %>
                     
-                    <div class="mainmessage rightchat"><div class="dot"></div><%= e.message %></div>
+                    <div class="mainmessage leftchat"><%= e.message %></div>
                     <% } else if(e.onlyid  ==  currentuser._id){ %>
-                        <div class="mainmessage leftchat"><div class="dot dot2 "></div> <%= e.message %></div>
+                        <div class="mainmessage rightchat"><div class="dot dot2 "></div> <%= e.message %></div>
                         <% }%>
 
                         <% }) %>
@@ -47,12 +47,79 @@
     </main>
 
     <div class="chatform">
-        <form action="/chat/<%= user._id %>" method="post">
-            <input type="text" name="messages" placeholder="Type your message">
+        <form id="form">
+            <input id="input" type="text" placeholder="Type your message">
             <button><img src="/images/uploads/send.svg" alt=""></button>
-
         </form>
     </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io()
+
+
+        // Join the room
+        const roomId = "<%= roomId %>";
+        const currentUserId = "<%= currentuser._id %>";
+
+        socket.emit("joinRoom", roomId);
+
+        const form = document.getElementById("form")
+        const input = document.getElementById("input")
+        const chatmessage = document.querySelector(".chatmessage")
+
+        form.addEventListener("submit", (e) => {
+            e.preventDefault()
+            console.log(e, input.value)
+            if (input.value) {
+                socket.emit("message", {
+                    roomId,
+                    senderId: currentUserId,
+                    message: input.value
+                });
+                input.value = '';
+            }
+        })
+
+
+        socket.on("message", (data) => {
+            let div = document.createElement("div");
+            div.textContent = data.message;
+            div.classList.add("mainmessage");
+            if (data.senderId !== currentUserId) {
+                div.classList.add("leftchat");
+            } else {
+                div.classList.add("rightchat");
+            }
+            chatmessage.appendChild(div);
+
+
+             const scrollContainer = document.querySelector("main");
+    scrollContainer.scrollTop = scrollContainer.scrollHeight;
+        });
+
+
+
+
+        // socket.on('message', (msg) => {
+        //     let div = document.createElement("div")
+        //     div.textContent = msg
+        //     div.classList.add("mainmessage")
+        //     div.classList.add("rightchat")
+        //     chatmessage.appendChild(div)
+        // });
+        //        socket.on("chat message", (msg) => {
+        //     console.log(msg)
+        //     const item = document.createElement('li');
+        //     item.textContent = msg;
+        //     messages.appendChild(item);
+        // })
+
+        window.onload = () => {
+  const chatBox = document.querySelector("main");
+  chatBox.scrollTop = chatBox.scrollHeight;
+};
+    </script>
+
 
 </body>
 
