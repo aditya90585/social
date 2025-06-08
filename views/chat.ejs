@@ -14,7 +14,7 @@
         <div class="logo">
             <img src="/images/uploads/logo.svg" alt="">
         </div>
-
+  <audio src="/sounds/pop.mp3"></audio>
         <div class="h2">
             <div class="searching">
                 <a href="/profile"><img class="profilepic" src="data:image/jpeg;base64,<%= currentuser.profile %>"
@@ -35,14 +35,19 @@
     <main>
         <div class="chatmessage">
             <% chatdata.chat.forEach((e)=>{ %>
-                <% if( e.onlyid  ==  user._id ){ %>
-                    
-                    <div class="mainmessage leftchat"><%= e.message %></div>
-                    <% } else if(e.onlyid  ==  currentuser._id){ %>
-                        <div class="mainmessage rightchat"><div class="dot dot2 "></div> <%= e.message %></div>
+                <% if( e.onlyid==user._id ){ %>
+
+                    <div class="mainmessage leftchat">
+                        <%= e.message %>
+                    </div>
+                    <% } else if(e.onlyid==currentuser._id){ %>
+                        <div class="mainmessage rightchat">
+                            <div class="dot dot2 "></div>
+                            <%= e.message %>
+                        </div>
                         <% }%>
 
-                        <% }) %>
+                            <% }) %>
         </div>
     </main>
 
@@ -66,6 +71,7 @@
         const form = document.getElementById("form")
         const input = document.getElementById("input")
         const chatmessage = document.querySelector(".chatmessage")
+        const pop = document.querySelector("audio")
 
         form.addEventListener("submit", (e) => {
             e.preventDefault()
@@ -77,6 +83,14 @@
                     message: input.value
                 });
                 input.value = '';
+
+                setTimeout(() => {
+                    input.focus(); // Refocus quickly to keep keyboard open
+                }, 50);
+                if (navigator.vibrate) {
+      navigator.vibrate(100); // You can use [50, 30, 50] for a pattern
+    }
+                pop.play()
             }
         })
 
@@ -93,8 +107,8 @@
             chatmessage.appendChild(div);
 
 
-             const scrollContainer = document.querySelector("main");
-    scrollContainer.scrollTop = scrollContainer.scrollHeight;
+            const scrollContainer = document.querySelector("main");
+            scrollContainer.scrollTop = scrollContainer.scrollHeight;
         });
 
 
@@ -115,9 +129,9 @@
         // })
 
         window.onload = () => {
-  const chatBox = document.querySelector("main");
-  chatBox.scrollTop = chatBox.scrollHeight;
-};
+            const chatBox = document.querySelector("main");
+            chatBox.scrollTop = chatBox.scrollHeight;
+        };
     </script>
 
 
